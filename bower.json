@@ -1,0 +1,14 @@
+{
+  "name": "express-auth",
+  "main": "index.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ucd-cws/express-auth",
+  "authors": [
+    "Justin Merz <jrmerz@gmail.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "polymer": "~1.1.3"
+  }
+}
