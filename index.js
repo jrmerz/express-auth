@@ -1,6 +1,6 @@
-var authorization = require('./lib/authorization');
-var authentication = require('./lib/authentication');
-var admin = require('./lib/admin');
+var authorization = require('./lib/models/authorization');
+var authentication = require('./lib/controllers/authentication');
+var admin = require('./lib/controllers/admin');
 
 module.exports = {
   init : init
