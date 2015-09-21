@@ -1,0 +1,10 @@
+[
+  {
+    "group" : "admin",
+    "role" : "admin"
+  },
+  {
+    "group" : "testing",
+    "role" : ["read", "write"]
+  }
+]
