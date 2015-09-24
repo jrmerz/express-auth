@@ -1,0 +1,42 @@
+<dom-module id="auth-login">
+  <style>
+  </style>
+
+  <template>
+
+    <div id="message">Loading...</div>
+
+    <div id="notLoggedIn" style="display:none">
+
+    </div>
+
+
+  </template>
+</dom-module>
+
+
+<script>
+  Polymer({
+    is : 'auth-login',
+
+    ready : function() {
+      this.loggedIn = null;
+      this.checkLoginStatus();
+    },
+
+    checkLoginStatus : function() {
+      $.get(ExpressAuth.path+'/isLoggedIn', function(resp){
+
+        if( resp.loggedIn ) {
+          this.fire('user-logged-in');
+        } else {
+          this.$.notLoggedIn.style.display = 'block';
+          this.fire('user-not-logged-in');
+        }
+
+        this.loggedIn = resp.loggedIn;
+      }.bind(this));
+    }
+
+  });
+</script>

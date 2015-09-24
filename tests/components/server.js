@@ -2,9 +2,9 @@ var express = require('express');
 var MongoClient = require('mongodb').MongoClient;
 
 var app = express();
-var auth = require(__dirname+'/../index.js');
+var auth = require(__dirname+'/../../index.js');
 
-app.use(express.static(__dirname+'/../public'));
+app.use(express.static(__dirname+'/public'));
 
 var config = {
   sessionSecret : 'thisisnotasecret'
