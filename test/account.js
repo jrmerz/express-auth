@@ -92,4 +92,24 @@ describe('Account', function() {
     });
   });
 
+  describe('#merge()', function() {
+    it('should let you merge oauth data', function(done) {
+      var userModel = model(global.setup);
+      var oauthData = require('./data/oauth/user1.json');
+
+      userModel.merge(userData1.username, 'google', oauthData, function(err, resp){
+        if( err ) throw err;
+
+        userModel.get(userData1.username, function(err, user) {
+          for( var key in user.oauth.google ) {
+            assert.equal(user.oauth.google[key], oauthData[key]);
+          }
+
+          done();
+        });
+
+
+      });
+    });
+  });
 });

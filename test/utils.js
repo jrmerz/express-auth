@@ -21,7 +21,11 @@ function connect(callback) {
 }
 
 function reset(callback) {
-  global.setup.usersCollection.remove({}, callback);
+  // clear users
+  global.setup.usersCollection.remove({}, function(){
+    // clear acl
+    global.setup.db.collection('acl_resources').remove({}, callback);
+  });
 }
 
 module.exports = {

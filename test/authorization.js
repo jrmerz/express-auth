@@ -39,7 +39,5 @@ describe('Authorization', function() {
       );
     });
 
-
-
   }); // end create
 });
