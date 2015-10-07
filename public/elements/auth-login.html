@@ -1,12 +1,30 @@
 <dom-module id="auth-login">
   <style>
+    :host {
+      display : block
+    }
   </style>
 
   <template>
 
     <div id="message">Loading...</div>
 
-    <div id="notLoggedIn" style="display:none">
+    <div id="notLoggedIn" style="display:none" class="well">
+      <h4>Login</h4>
+
+      <div id="loginBtns"></div>
+
+      <div id="local" class="form" style="display:none">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username-input" placeholder="Username">
+        </div>
+        <div class="form-group">
+          <label for="username">Password</label>
+          <input type="password" class="form-control" id="username-password" placeholder="Password">
+        </div>
+        <a class="btn btn-default">Login</a>
+      </div>
 
     </div>
 
@@ -21,11 +39,22 @@
 
     ready : function() {
       this.loggedIn = null;
+      this.renderLoginBtns();
       this.checkLoginStatus();
+    },
+
+    renderLoginBtns : function() {
+      var html = '<ul class="list-group">', provider;
+      for( var i = 0; i < ExpressAuth.oauthProviders.length; i++ ) {
+        provider = ExpressAuth.oauthProviders[i];
+        html += '<li class="list-group-item"><a class="btn btn-link" href="'+provider.href+'">Login with '+provider.label+'</a></li>';
+      }
+      this.$.loginBtns.innerHTML = html+'</ul>';
     },
 
     checkLoginStatus : function() {
       $.get(ExpressAuth.path+'/isLoggedIn', function(resp){
+        this.$.message.style.display = 'none';
 
         if( resp.loggedIn ) {
           this.fire('user-logged-in');

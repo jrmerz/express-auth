@@ -1,6 +1,5 @@
 var authorization = require('./lib/models/authorization');
 var authentication = require('./lib/controllers/authentication');
-var admin = require('./lib/controllers/admin');
 
 module.exports = {
   init : init
@@ -12,13 +11,8 @@ function init(setup) {
     setup.config = require(setup.config);
   }
 
-  // check users collection
-  if( !setup.config.usersCollection ) {
-    setup.config.usersCollection = 'users';
-  }
-
   // quick access to users collection
-  setup.usersCollection = setup.db.collection(setup.config.usersCollection);
+  setup.usersCollection = setup.db.collection(setup.config.usersCollection || 'users');
 
   // init the authentication (passport)
   authentication.init(setup);
@@ -27,5 +21,5 @@ function init(setup) {
   authorization.init(setup);
 
   // init the admin functionality
-  admin.init(setup);
+  require('./lib/controllers/admin')(setup);
 }
