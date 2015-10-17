@@ -1,0 +1,39 @@
+<dom-module id="auth-create-username">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <div class="form-horizontal">
+      <div class="form-group">
+        <label for="usernameInput"></label>
+        <input type="text" class="form-control" id="usernameInfo" placeholder="Create username">
+        <p class="" id="message"></p>
+      </div>
+    </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'auth-create-username',
+
+      ready : function() {
+        this.searchTimer = -1;
+      }
+
+      search : function() {
+        if( this.searchTimer != -1 ) clearTimeout(this.searchTimer);
+        this.searchTimer = setTimeout(function(){
+          this.searchTimer = -1;
+          this._search();
+        }.bind(this), 200);
+      },
+
+      _search : function() {
+        $.get('')
+      }
+    });
+  </script>
+</dom-module>

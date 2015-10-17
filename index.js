@@ -1,18 +1,9 @@
+var setup = require('./lib/setup');
 var authorization = require('./lib/models/authorization');
 var authentication = require('./lib/controllers/authentication');
 
-module.exports = {
-  init : init
-};
-
-function init(setup) {
-  // a lot of times we will store auth config in a sperate file
-  if( typeof setup.config === 'string' ) {
-    setup.config = require(setup.config);
-  }
-
-  // quick access to users collection
-  setup.usersCollection = setup.db.collection(setup.config.usersCollection || 'users');
+module.exports = function(setup) {
+  setup.init(setup);
 
   // init the authentication (passport)
   authentication.init(setup);

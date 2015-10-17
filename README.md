@@ -22,9 +22,9 @@ Returns:
 
 Returns user object
 
-## /auth/config
+## /auth/express-auth.js
 
-Returns the current server configuration.  This returns JavaScript code not JSON
+Returns the current server configuration and user information.  This returns JavaScript code not JSON
 and should be added as a script tag in your app.  Will inject the ExpressAuth
 namespace describing the configuration for several of the web components.
 
