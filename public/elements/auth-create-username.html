@@ -9,8 +9,9 @@
     <div class="form-horizontal">
       <div class="form-group">
         <label for="usernameInput"></label>
-        <input type="text" class="form-control" id="usernameInfo" placeholder="Create username">
-        <p class="" id="message"></p>
+        <input type="text" class="form-control" id="usernameInfo" on-keyup="search" placeholder="Create username">
+        <p id="message"></p>
+        <a class="btn btn-default" disabled id="submit">Set Username</a>
       </div>
     </div>
 
@@ -24,6 +25,9 @@
       }
 
       search : function() {
+        this.$.message.className = 'text text-warning';
+        this.$.message.innerHTML = 'verifying...';
+
         if( this.searchTimer != -1 ) clearTimeout(this.searchTimer);
         this.searchTimer = setTimeout(function(){
           this.searchTimer = -1;
@@ -32,7 +36,18 @@
       },
 
       _search : function() {
-        $.get('')
+        var username = this.$.usernameInput.value;
+        $.get('/auth/account/validUsername?username='+username, function(resp){
+          if( resp.error ) {
+            this.$.message.className = 'text text-danger';
+            this.$.message.innerHTML = resp.message;
+            this.$.submit.setAttribute('disabled', 'disabled');
+          } else {
+            this.$.message.className = 'text text-success';
+            this.$.message.innerHTML = 'Valid';
+            this.$.submit.removeAttribute('disabled');
+          }
+        }.bind(this));
       }
     });
   </script>
