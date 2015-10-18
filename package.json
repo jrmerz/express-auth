@@ -12,6 +12,7 @@
     "acl": "^0.4.9",
     "async": "^1.4.2",
     "bcrypt": "^0.8.5",
+    "body-parser": "^1.14.1",
     "express-session": "^1.11.3",
     "extend": "^3.0.0",
     "install": "^0.1.8",

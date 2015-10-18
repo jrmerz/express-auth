@@ -1,0 +1,82 @@
+<dom-module id="auth-create-account">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <div class="form-horizontal">
+      <div class="form-group">
+        <label for="usernameInput" class="col-lg-2 control-label">Username</label>
+        <div class="col-lg-10">
+          <input type="text" class="form-control" id="usernameInput" on-keyup="search" placeholder="Create username" />
+          <p id="message"></p>
+        </div>
+      </div>
+    </div>
+
+    <content></content>
+
+    <div class="form-horizontal">
+      <div class="form-group">
+        <label for="" class="col-lg-2 control-label"></label>
+        <div class="col-lg-10">
+          <a class="btn btn-default" disabled id="submit" on-click="create">Create Account</a>
+        </div>
+      </div>
+    </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'auth-create-account',
+
+      ready : function() {
+        this.searchTimer = -1;
+        this.account = {};
+      },
+
+      search : function() {
+        this.$.message.className = 'text text-warning';
+        this.$.message.innerHTML = 'verifying...';
+
+        if( this.searchTimer != -1 ) clearTimeout(this.searchTimer);
+        this.searchTimer = setTimeout(function(){
+          this.searchTimer = -1;
+          this._search();
+        }.bind(this), 200);
+      },
+
+      _search : function() {
+        var username = this.$.usernameInput.value;
+        $.get('/auth/account/validUsername?username='+encodeURIComponent(username), function(resp){
+          if( resp.error ) {
+            this.$.message.className = 'text text-danger';
+            this.$.message.innerHTML = resp.message;
+            this.$.submit.setAttribute('disabled', 'disabled');
+          } else {
+            this.$.message.className = 'text text-success';
+            this.$.message.innerHTML = 'Valid';
+            this.$.submit.removeAttribute('disabled');
+          }
+        }.bind(this));
+      },
+
+      create : function() {
+        this.account.username = this.$.usernameInput.value;
+
+        $.post('/auth/account/create', {account: this.account}, function(resp){
+          if( resp.error ) {
+            this.$.message.className = 'text text-danger';
+            this.$.message.innerHTML = resp.message;
+          } else {
+            this.$.message.className = 'text text-success';
+            this.$.message.innerHTML = 'Valid';
+            this.fire('account-create');
+          }
+        }.bind(this));
+      }
+    });
+  </script>
+</dom-module>
