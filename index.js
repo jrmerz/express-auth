@@ -1,16 +1,17 @@
 var setup = require('./lib/setup');
 var authorization = require('./lib/models/authorization');
 var authentication = require('./lib/controllers/authentication');
+var admin = require('./lib/controllers/admin');
 
-module.exports = function(setup) {
-  setup.init(setup);
+module.exports = function(authSetup) {
+  setup.init(authSetup);
 
   // init the authentication (passport)
-  authentication.init(setup);
+  authentication();
 
   // init the authorization (acl)
-  authorization.init(setup);
+  authorization();
 
   // init the admin functionality
-  require('./lib/controllers/admin')(setup);
-}
+  admin();
+};

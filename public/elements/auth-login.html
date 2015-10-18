@@ -9,25 +9,25 @@
 
     <div id="message">Loading...</div>
 
-    <div id="notLoggedIn" style="display:none" class="well">
-      <h4>Login</h4>
+    <div class="panel panel-default" id="notLoggedIn" style="display:none" >
+      <div class="panel-heading">Login</div>
 
-      <div id="loginBtns"></div>
+      <div class="panel-body">
+        <div id="loginBtns"></div>
 
-      <div id="local" class="form" style="display:none">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" class="form-control" id="username-input" placeholder="Username">
+        <div id="local" class="form" style="display:none">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username-input" placeholder="Username">
+          </div>
+          <div class="form-group">
+            <label for="username">Password</label>
+            <input type="password" class="form-control" id="username-password" placeholder="Password">
+          </div>
+          <a class="btn btn-default">Login</a>
         </div>
-        <div class="form-group">
-          <label for="username">Password</label>
-          <input type="password" class="form-control" id="username-password" placeholder="Password">
-        </div>
-        <a class="btn btn-default">Login</a>
       </div>
-
     </div>
-
 
   </template>
 </dom-module>
