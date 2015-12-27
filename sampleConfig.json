@@ -1,0 +1,23 @@
+{
+  "protected" : {
+    "/" : "login",
+    "/rest/admin" : "admin"
+  },
+  "gitkit" : {
+    "clientId": "",
+    "projectId": "app-name",
+    "serviceAccountEmail": "",
+    "serviceAccountPrivateKeyFile": "full/path/to/pem/file.pem",
+    "widgetUrl": "http://localhost:8000/gitkit",
+    "cookieName": "gtoken"
+  },
+  "signInWidget" : {
+     "widgetUrl": "http://localhost:8000/gitkit",
+     "signInSuccessUrl": "/",
+     "signOutUrl": "/",
+     "oobActionUrl": "/sendemail",
+     "apiKey": "",
+     "siteName": "this site",
+     "signInOptions": ["password","google","aol"]
+   }
+}

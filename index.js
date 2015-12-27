@@ -1,8 +1,7 @@
-
-
 var authSetup = require('./lib/setup');
 var authorization = require('./lib/models/authorization');
 var authentication = require('./lib/controllers/authentication');
+
 var admin = require('./lib/controllers/admin');
 var account = require('./lib/controllers/account');
 
