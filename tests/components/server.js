@@ -14,20 +14,6 @@ var config = {
   google : require('/etc/express-auth/google')
 };
 
-function oauthNoUser(collection, accessToken, refreshToken, profile, done) {
-  var user = {
-    name : profile.displayName,
-    email : profile.emails[0].value,
-    username : profile.emails[0].value,
-    google : profile,
-    accessToken : accessToken,
-    refreshToken : refreshToken
-  };
-
-  collection.insert(user, function(err, result){
-    done(err, user);
-  });
-}
 
 
 MongoClient.connect('mongodb://localhost:27017/expressAuthTest', function(err, db){
@@ -39,8 +25,12 @@ MongoClient.connect('mongodb://localhost:27017/expressAuthTest', function(err, d
   auth.init({
     db : db,
     app : app,
-    config : config,
-    oauthNoUser : oauthNoUser
+    config : {
+      host : 'http://localhost:3000/',
+      gitkit : '/etc/express-auth/gitkit.json',
+      signInWidget : '/etc/express-auth/signInWidget.json',
+      protected : {}
+    }
   });
 
   app.listen(3000);

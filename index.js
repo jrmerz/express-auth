@@ -1,4 +1,3 @@
-var authSetup = require('./lib/setup');
 var authorization = require('./lib/models/authorization');
 var authentication = require('./lib/controllers/authentication');
 var middleware = require('./lib/auth-middleware');
@@ -36,7 +35,7 @@ var auth = {
     authentication(setup);
 
     // init the authorization (acl)
-    authorization(config, auth);
+    authorization(setup, auth);
 
     // init the admin functionality
     //admin();

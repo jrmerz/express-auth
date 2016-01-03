@@ -1,21 +1,21 @@
+<!DOCTYPE html>
 <html>
-  <head>
+<head>
+  <script type="text/javascript" src="//www.gstatic.com/authtoolkit/js/gitkit.js"></script>
+  <link type=text/css rel=stylesheet href="//www.gstatic.com/authtoolkit/css/gitkit.css" />
 
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-
-    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="auth/config"></script>
-
-    <link rel="import" href="bower_components/polymer/polymer.html" />
-    <link rel="import" href="elements/auth-login.html" />
-
-  </head>
-  <body>
-
-    <div style="margin: 30px">
-      <auth-login></auth-login>
-    </div>
-  </body>
+  <script type=text/javascript>
+    window.google.identitytoolkit.signInButton(
+        '#navbar',
+        {
+          widgetUrl: "/auth/gitkit",
+          signOutUrl: "/"
+        }
+    );
+  </script>
+</head>
+<body>
+<div id="navbar"></div>
+<p>%%loginInfo%%</p>
+</body>
 </html>
