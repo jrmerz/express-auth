@@ -4,7 +4,6 @@ var MongoClient = require('mongodb').MongoClient;
 var app = express();
 var auth = require(__dirname+'/../../index.js');
 
-app.use(express.static(__dirname+'/public'));
 
 var config = {
   redirect : '/login.html',
@@ -13,7 +12,6 @@ var config = {
   usersCollection : 'users',
   google : require('/etc/express-auth/google')
 };
-
 
 
 MongoClient.connect('mongodb://localhost:27017/expressAuthTest', function(err, db){
@@ -26,13 +24,15 @@ MongoClient.connect('mongodb://localhost:27017/expressAuthTest', function(err, d
     db : db,
     app : app,
     config : {
-      host : 'http://localhost:3000/',
+      host : 'http://localhost:3000',
       gitkit : '/etc/express-auth/gitkit.json',
       signInWidget : '/etc/express-auth/signInWidget.json',
+      installRequiredMiddleware : true,
       protected : {}
     }
   });
 
+  app.use(express.static(__dirname+'/public'));
   app.listen(3000);
   console.log('listening on 3000');
 });

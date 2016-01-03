@@ -1,6 +1,6 @@
 var authorization = require('./lib/models/authorization');
 var authentication = require('./lib/controllers/authentication');
-var middleware = require('./lib/auth-middleware');
+var middleware;
 
 //var admin = require('./lib/controllers/admin');
 
@@ -41,7 +41,9 @@ var auth = {
     //admin();
 
     // add middleware to express
+    middleware = require('./lib/auth-middleware')(setup);
     app.use(middleware);
+
   },
   middleware : middleware
 };
