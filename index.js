@@ -1,5 +1,7 @@
 var authorization = require('./lib/models/authorization');
 var authentication = require('./lib/controllers/authentication');
+var account = require('./lib/controllers/account');
+var gitkit = require('./lib/models/gitkit');
 var middleware;
 
 //var admin = require('./lib/controllers/admin');
@@ -31,19 +33,21 @@ var auth = {
 
     config.usersCollection = db.collection(config.usersCollection || 'users');
 
-    // init the authentication (gitkit)
-    authentication(setup);
-
-    // init the authorization (acl)
-    authorization(setup, auth);
-
-    // init the admin functionality
-    //admin();
+    gitkit(setup);
 
     // add middleware to express
     middleware = require('./lib/auth-middleware')(setup);
     app.use(middleware);
 
+    // init the authentication (gitkit)
+    authentication(setup);
+
+    // init the authorization (acl)
+    authorization(setup, auth);
+    account(setup);
+
+    // init the admin functionality
+    //admin();
   },
   middleware : middleware
 };

@@ -118,6 +118,20 @@ Example:
 
 ## Endpoints
 
+#### /auth/signin
+
+Redirects to /auth/gitkit?mode=select, which sends the user to https://www.accountchooser.com
+and runs the auth flow.
+
+#### /auth/signout
+
+Just clears the gtoken cookie.
+
+Returns:
+```
+{success: true}
+```
+
 #### /auth/isLoggedIn
 
 Returns:
@@ -134,6 +148,32 @@ Returns user object
 Returns the current server configuration and user information.  This returns JavaScript code not JSON
 and should be added as a script tag in your app.  Will inject the ExpressAuth
 namespace describing the configuration for several of the web components.
+
+#### /auth/getDevToken
+
+Get your existing developer token.  Tokens can be passed in the query string using
+?dev-token=[token] or in the header of a request using 'x-dev-token: [token]'.
+Tokens expire 24 hours after they are issued.
+
+Returns:
+```
+{
+  uuid : "", // token
+  expires : "" // ISO string of expires date and time
+}
+```
+
+#### /auth/newDevToken
+
+Create a new developer token.
+
+Returns:
+```
+{
+  uuid : "", // token
+  expires : "" // ISO string of expires date and time
+}
+```
 
 ## Users Collection Schema
 
