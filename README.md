@@ -94,7 +94,7 @@ provided by google [here](https://developers.google.com/identity/toolkit/web/set
 #### protected : [Object]
 
 Define the endpoints that require login or can only be accessed by admins.  These
-endpoints are (currently) assumed to be REST JSON endpoints.  So failure responses will
+endpoints are assumed to be REST JSON endpoints by default.  So failure responses will
 be of the form:
 
 ```JSON
@@ -105,18 +105,40 @@ be of the form:
 ```
 
 Endpoints that require login should have value 'login' while endpoints that can
-only be accessed by the admin should have value 'admin'.
+only be accessed by the admin should have value 'admin'.  You can override the
+assumed rest endpoint by supplying an object instead of a string with parameters
+'type' and 'level', see below.  If type is not rest, a redirect will be preformed
+instead of the error response.  You will need to provide config.loginPath in your
+config.
 
 Example:
 
 ```JSON
 {
   "/api/getStuff" : "login",
-  "/api/admin/doStuff" : "admin"
+  "/api/admin/doStuff" : "admin",
+  "app.html" : {
+    "type" : "page",
+    "level" : "login"
+  }
 }  
 ```
 
+#### loginPath : [String]
+
+Required if any of your protected urls are not of type **rest**.
+
+Example:
+```JavaScript
+{
+  // ...
+  loginPath : '/login.html'
+}
+```
+
 ## Endpoints
+
+All endpoints below assume you are using the default path **/auth**.
 
 #### /auth/signin
 
@@ -128,14 +150,14 @@ and runs the auth flow.
 Just clears the gtoken cookie.
 
 Returns:
-```
+```JavaScript
 {success: true}
 ```
 
 #### /auth/isLoggedIn
 
 Returns:
-```
+```JavaScript
 {loggedIn : Boolean}
 ```
 
@@ -156,7 +178,7 @@ Get your existing developer token.  Tokens can be passed in the query string usi
 Tokens expire 24 hours after they are issued.
 
 Returns:
-```
+```JavaScript
 {
   uuid : "", // token
   expires : "" // ISO string of expires date and time
@@ -168,7 +190,7 @@ Returns:
 Create a new developer token.
 
 Returns:
-```
+```JavaScript
 {
   uuid : "", // token
   expires : "" // ISO string of expires date and time
