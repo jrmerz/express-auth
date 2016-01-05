@@ -33,7 +33,11 @@ var auth = {
 
     config.usersCollection = db.collection(config.usersCollection || 'users');
 
+    // setup google identity toolkit
     gitkit(setup);
+
+    // setup mailer
+    require('./lib/mailer')(setup.config);
 
     // add middleware to express
     middleware = require('./lib/auth-middleware')(setup);

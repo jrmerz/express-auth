@@ -27,8 +27,14 @@ MongoClient.connect('mongodb://localhost:27017/expressAuthTest', function(err, d
       host : 'http://localhost:3000',
       gitkit : '/etc/express-auth/gitkit.json',
       signInWidget : '/etc/express-auth/signInWidget.json',
+      mail : '/etc/express-auth/mail.json',
       installRequiredMiddleware : true,
-      protected : {}
+      protected : {
+        '/protected.html' : {
+          type : 'page',
+          level : 'login'
+        }
+      }
     }
   });
 
